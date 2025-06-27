@@ -13,7 +13,7 @@ current_rolls = {
     'function': None
 }
 
-# New morphological table of parameters (UPD)
+# New morphological table (UPD)
 parameters = {
     'visual': [
         "Starlit Veils",
