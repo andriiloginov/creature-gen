@@ -4,7 +4,6 @@ import json
 import random
 import urllib.parse
 import os
-PORT = int(os.environ.get("PORT", 8000))
 
 # In-memory state for current rolls
 current_rolls = {
@@ -27,7 +26,13 @@ parameters = {
         "Stone Fragments",
         "Glass Spheres",
         "Bioluminescent Spots",
-        "Holographic Projections"
+        "Holographic Projections",
+        "Glowing Runes",
+        "Fractal Patterns",
+        "Moss-like Filaments",
+        "Prismatic Scales",
+        "Vaporous Auras",
+        "Chameleonic Skin"
     ],
     'movement': [
         "Spiral Rotation",
@@ -41,7 +46,13 @@ parameters = {
         "Vibrational Trembling",
         "Magnetic Attraction",
         "Phase Vanishing",
-        "Elastic Stretching"
+        "Elastic Stretching",
+        "Crystal Shattering",
+        "Ethereal Drifting",
+        "Quantum Flickering",
+        "Root-like Crawling",
+        "Sonic Rippling",
+        "Gravitational Sliding"
     ],
     'function': [
         "Magnetic Attraction of Metals",
@@ -55,7 +66,13 @@ parameters = {
         "Reading Emotional States",
         "Conversion of Light to Energy",
         "Purification of Air from Toxins",
-        "Synchronization with Natural Rhythms"
+        "Synchronization with Natural Rhythms",
+        "Projection of Dreamscapes",
+        "Temporal Distortion",
+        "Molecular Reconstruction",
+        "Psychic Resonance",
+        "Energy Weaving",
+        "Atmospheric Condensation"
     ]
 }
 
@@ -227,10 +244,10 @@ HTML_CONTENT = """
 """
 
 def create_creature_description(visual, movement, func):
-    backgrounds = ['clean white', 'pastel mint', 'ocean blue', 'forest green', 'sunset orange']
-    angles = ['frontal', 'diagonal low angle', 'top-down', 'side profile']
-    textures = ['grain texture', 'dust particles', 'bokeh lights', 'floating debris']
-    surreal = ['holographic confetti', 'chrome spheres', 'vintage buttons', 'crystal fragments', 'neon rings']
+    backgrounds = ['clean white', 'pastel mint', 'ocean blue', 'forest green', 'sunset orange', 'cosmic black', 'radiant gold']
+    angles = ['frontal', 'diagonal low angle', 'top-down', 'side profile', 'three-quarter view']
+    textures = ['grain texture', 'dust particles', 'bokeh lights', 'floating debris', 'mist swirls']
+    surreal = ['holographic confetti', 'chrome spheres', 'vintage buttons', 'crystal fragments', 'neon rings', 'pulsing orbs', 'fractured mirrors']
 
     bg = random.choice(backgrounds)
     angle = random.choice(angles)
@@ -257,9 +274,9 @@ class CreatureGeneratorHandler(http.server.BaseHTTPRequestHandler):
         
         elif path == '/api/roll_dice':
             global current_rolls
-            current_rolls['visual'] = random.randint(1, 12)
-            current_rolls['movement'] = random.randint(1, 12)
-            current_rolls['function'] = random.randint(1, 12)
+            current_rolls['visual'] = random.randint(1, 18)
+            current_rolls['movement'] = random.randint(1, 18)
+            current_rolls['function'] = random.randint(1, 18)
 
             response = {
                 'visual_value': parameters['visual'][current_rolls['visual'] - 1],
@@ -313,7 +330,7 @@ class CreatureGeneratorHandler(http.server.BaseHTTPRequestHandler):
             self.end_headers()
 
 if __name__ == '__main__':
-    PORT = 8000
+    PORT = int(os.environ.get("PORT", 8000))
     with socketserver.TCPServer(("", PORT), CreatureGeneratorHandler) as httpd:
         print(f"Serving at http://localhost:{PORT}")
         try:
