@@ -3,6 +3,8 @@ import socketserver
 import json
 import random
 import urllib.parse
+import os
+PORT = int(os.environ.get("PORT", 8000))
 
 # In-memory state for current rolls
 current_rolls = {
